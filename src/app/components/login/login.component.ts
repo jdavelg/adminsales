@@ -31,7 +31,7 @@ this._userService.login(this.user).subscribe(
   response=>{
 if (response.token) {
   this.token= response.token
-  sessionStorage.setItem('token', this.token);
+  localStorage.setItem('token', this.token);
   this._router.navigate(['/'])
 }
   },

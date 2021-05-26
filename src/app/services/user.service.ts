@@ -25,7 +25,7 @@ export class UserService {
   }
 
   getToken(){
-    let token=sessionStorage.getItem('token')
+    let token=localStorage.getItem('token')
     if (token!=undefined) {
       return token
     } else {
