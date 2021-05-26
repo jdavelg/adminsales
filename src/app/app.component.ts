@@ -1,5 +1,7 @@
-import { Component } from '@angular/core';
+import { Component, DoCheck } from '@angular/core';
 import { UserService } from './services/user.service';
+import Swal from 'sweetalert2'
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-root',
@@ -9,12 +11,5 @@ import { UserService } from './services/user.service';
 })
 export class AppComponent {
   title = 'adminsales';
-  public token: any;
 
-
-  constructor(
-    private _userService:UserService
-  ) {
-this.token= this._userService.getToken()
-  }
 }

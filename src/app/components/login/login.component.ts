@@ -32,7 +32,7 @@ this._userService.login(this.user).subscribe(
 if (response.token) {
   this.token= response.token
   localStorage.setItem('token', this.token);
-  this._router.navigate(['/'])
+  this._router.navigate(['/brand'])
 }
   },
   error=>{

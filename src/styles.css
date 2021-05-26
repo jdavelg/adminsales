@@ -1,1 +1,6 @@
 /* You can add global styles to this file, and also import other style files */
+.logosales{
+    width: auto;
+    max-width: 120px;
+    max-height: 120px;
+}

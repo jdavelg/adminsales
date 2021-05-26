@@ -1,14 +1,26 @@
 
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
+import { AppComponent } from './app.component';
+import { AdminComponent } from './components/admin/admin.component';
 import { BrandComponent } from './components/brand/brand.component';
 import { CategoryComponent } from './components/category/category.component';
+import { HomeadminComponent } from './components/homeadmin/homeadmin.component';
 import { LoginComponent } from './components/login/login.component';
+import { ProductComponent } from './components/product/product.component';
+import { IdentifyGuard } from './guards/identify.guard';
+import { UserGuard } from './guards/user.guard';
+
+
 
 const routes: Routes = [
-  { path: '', component: LoginComponent },
-  { path: 'category', component: CategoryComponent },
-  { path: 'brand', component: BrandComponent },
+  { path: 'login',canActivate:[IdentifyGuard], component: LoginComponent },
+  { path: '', redirectTo: 'login', pathMatch: 'full' },
+  { path: 'admin',   canActivate:[UserGuard],   component: AdminComponent },
+  { path: 'category', /* canActivate:[UserGuard], */component: CategoryComponent },
+  { path: 'brand', canActivate:[UserGuard],component: BrandComponent },
+  { path: 'product',canActivate:[UserGuard], component: ProductComponent },
+  { path: 'home',canActivate:[UserGuard], component: HomeadminComponent },
 ];
 
 @NgModule({

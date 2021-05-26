@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { EMPTY, Observable } from 'rxjs';
+import { EMPTY, EmptyError, Observable } from 'rxjs';
 import { User } from '../models/user';
 import { global } from '../models/global';
 
@@ -28,8 +28,8 @@ export class UserService {
     let token=localStorage.getItem('token')
     if (token!=undefined) {
       return token
-    } else {
-      return 'abecede'
+    } else{
+      return '0'
     }
   
   }

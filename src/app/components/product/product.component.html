@@ -1,6 +1,6 @@
 <div class="row mt-4">
     <div class="col">
-        <h4 style=" text-align: center;"><span class="badge bg-secondary text-light ">Agrega una nueva categoria</span>
+        <h4 style=" text-align: center;"><span class="badge bg-secondary text-light ">Agrega un producto</span>
         </h4>
         <div class="alert alert-danger alert-dismissible fade show" role="alert" *ngIf="status=='error'">
             <strong>Error!</strong> Hubo un error al realizar la peticion.
@@ -15,48 +15,98 @@
             <form #registerForm="ngForm" (ngSubmit)="onSubmit(registerForm)">
                 <div class="form-group">
                     <label for="name">Nombre</label>
-                    <input type="text" #name="ngModel" [(ngModel)]="category.name" name="name" class="form-control"
+                    <input type="text" #name="ngModel" [(ngModel)]="product.name" name="name" class="form-control"
                         required>
                 </div>
 
                 <div class="form-group">
-                    <label for="image">Imagen</label>
-                    <input type="text" #image="ngModel" [(ngModel)]="category.image" class="form-control" name="image"
+                    <label for="brandId">Marca</label>
+                    <select class="form-select" name="brandId" #brandId="ngModel" [(ngModel)]="product.brandId"
+                        required>
+
+                        <option value="{{brand._id}}" *ngFor="let brand of brands">{{brand.name}}</option>
+
+                    </select>
+                </div>
+
+
+                <div class="form-group">
+                    <label for="price">Precio</label>
+                    <input type="number" #price="ngModel" [(ngModel)]="product.price" name="price" class="form-control"
                         required>
                 </div>
-                <button type="submit" class="btn btn-outline-success mt-3">Guardar Nueva categoria</button>
+                <div class="form-group">
+                    <label for="image">Imagen</label>
+                    <input type="text" #image="ngModel" [(ngModel)]="product.image" class="form-control" name="image"
+                        required>
+                  <!--   <file-pond #myPond [options]="pondOptions" oninit="pondHandleInit()"
+                        onaddfile="pondHandleAddFile($event)" onactivatefile="pondHandleActivateFile($event)">
+                    </file-pond> -->
+                </div>
+                <div class="form-group">
+                    <label for="link">Link</label>
+                    <input type="text" #link="ngModel" [(ngModel)]="product.link" name="link" class="form-control"
+                        required>
+                </div>
+
+                <button type="submit" class="btn btn-outline-success mt-3" [disabled]="registerForm.invalid">Guardar
+                    Nuevo Producto</button>
             </form>
         </div>
     </div>
     <div class="col-sm-8">
-        <div class="pt-4 pr-4 pb-4 pl-4 mt-4 ml-4 mr-4 mb-4">
-            <select name="selectedBrand" [(ngModel)]="selectedBrand">
-                <option *ngFor="let brand of brands" value="brand._id">{{brand.name}}</option>
-            </select>
-        </div>
-        <div class="pt-4 pr-4 pb-4 pl-4" *ngFor="let brand of brands">
-            <table class="table table-success table-striped "
-                *ngIf=" selectedBrand !=undefined && brand._id==selectedBrand">
-                <thead>
-                    <tr>
-                        <th>Nombre de categoria</th>
-                        <th>imagen</th>
-                        <th>acciones</th>
-                    </tr>
+        <div class="pt-4 pr-4 pb-4 pl-4 mt-4 ml-4 mr-4 mb-2">
+            <h4 class=" ml-2">
+                <span class="badge bg-primary">Selecciona una marca para ver sus productos</span>
+            </h4>
+            <div class="col-lg-4 align-items-center">
+                <select name="selectedBrand" [(ngModel)]="selectedBrand" class="form-select ">
+                    <option *ngFor="let brand of brands" value="{{brand._id}}">{{brand.name}}</option>
+                </select>
+            </div>
 
-                </thead>
-                <tbody>
-                    <tr *ngFor="let product of brand.products">
-                        <td>{{product.name}}</td>
-                        <td>{{product.price}}</td>
-                        <td>{{product.image}}</td>
-                        <td>{{product.link}}</td>
-                        <td><button type="button" class="btn btn-danger btn-sm"
-                                (click)="delete(product._id)">Eliminar</button></td>
-                    </tr>
-                </tbody>
-            </table>
         </div>
+        <table class="table table-success table-striped " *ngIf="selectedBrand==undefined">
+            <thead>
+                <tr>
+                    <th>Nombre de producto</th>
+                    <th>precio</th>
+                    <th>imagen</th>
+                    <th>link</th>
+                    <th>acciones</th>
+                </tr>
+            </thead>
+        </table>
+
+        <span *ngFor="let brand of brands">
+            <div *ngIf=" selectedBrand !=undefined && brand._id==selectedBrand">
+                <table class="table table-success table-striped ">
+                    <thead>
+                        <tr>
+                            <th>Nombre de producto</th>
+                            <th>precio</th>
+                            <th>imagen</th>
+                            <th>link</th>
+                            <th>acciones</th>
+                        </tr>
+
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let product of brand.products">
+                            <td>{{product.name}}</td>
+                            <td>{{product.price}}</td>
+                            <td>{{product.image}}</td>
+                            <td>{{product.link}}</td>
+                            <td>
+                                <button type="button" class="btn btn-danger btn-sm"
+                                    (click)="delete(product._id, brand._id)">Eliminar</button>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </span>
+
     </div>
 
 </div>

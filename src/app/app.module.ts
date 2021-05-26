@@ -18,6 +18,18 @@ import { AddCategoryComponent } from './components/add-category/add-category.com
 import { FormsModule } from '@angular/forms';
 import { AdminComponent } from './components/admin/admin.component';
 
+// import filepond module
+import { FilePondModule, registerPlugin } from 'ngx-filepond';
+
+// import and register filepond file type validation plugin
+import * as FilePondPluginFileValidateType from 'filepond-plugin-file-validate-type' ;
+import * as FilePondPreview from 'filepond-plugin-image-preview'
+import * as FilePondPoster from 'filepond-plugin-file-poster'
+import { UserGuard } from './guards/user.guard';
+import { HomeadminComponent } from './components/homeadmin/homeadmin.component';
+registerPlugin(FilePondPluginFileValidateType, /* FilePondPreview, */ FilePondPoster);
+
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -30,16 +42,19 @@ import { AdminComponent } from './components/admin/admin.component';
     ProductComponent,
     CategoryComponent,
     AddCategoryComponent,
-    AdminComponent
+    AdminComponent,
+    HomeadminComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     HttpClientModule,
     FormsModule,
-    NgxFontAwesomeModule
+    NgxFontAwesomeModule,
+    FilePondModule 
   ],
-  providers: [],
+  providers: [ 
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
