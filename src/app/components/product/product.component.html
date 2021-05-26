@@ -1,27 +1,60 @@
-<div class="dualspace">
-    <div>
+<div class="row mt-4">
+    <div class="col">
+        <h4 style=" text-align: center;"><span class="badge bg-secondary text-light ">Agrega una nueva categoria</span>
+        </h4>
+        <div class="alert alert-danger alert-dismissible fade show" role="alert" *ngIf="status=='error'">
+            <strong>Error!</strong> Hubo un error al realizar la peticion.
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+        <div class="alert alert-success alert-dismissible fade show" role="alert" *ngIf="status=='success'">
+            <strong>Muy Bien</strong> La peticion se realizó con exito.
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
 
+        <div class="container">
+            <form #registerForm="ngForm" (ngSubmit)="onSubmit(registerForm)">
+                <div class="form-group">
+                    <label for="name">Nombre</label>
+                    <input type="text" #name="ngModel" [(ngModel)]="category.name" name="name" class="form-control"
+                        required>
+                </div>
+
+                <div class="form-group">
+                    <label for="image">Imagen</label>
+                    <input type="text" #image="ngModel" [(ngModel)]="category.image" class="form-control" name="image"
+                        required>
+                </div>
+                <button type="submit" class="btn btn-outline-success mt-3">Guardar Nueva categoria</button>
+            </form>
+        </div>
     </div>
-    <div>
-        <table class="table table-success table-striped">
-            <thead>
-                <tr>
-                    <th>ejemplo</th>
-                    <th>ejemplo</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr>
-                    <td>ejemplo 1</td>
-                    <td>ejemplo 2</td>
+    <div class="col-sm-8">
+        <div class="pt-4 pr-4 pb-4 pl-4 mt-4 ml-4 mr-4 mb-4">
+            <select name="selectedBrand" [(ngModel)]="selectedBrand">
+                <option *ngFor="let brand of brands" value="brand._id">{{brand.name}}</option>
+            </select>
+        </div>
+        <div class="pt-4 pr-4 pb-4 pl-4" *ngFor="let brand of brands">
+            <table class="table table-success table-striped "
+                *ngIf=" selectedBrand !=undefined && brand._id==selectedBrand">
+                <thead>
+                    <tr>
+                        <th>Nombre de categoria</th>
+                        <th>imagen</th>
+                        <th>acciones</th>
+                    </tr>
 
-                </tr>
-            </tbody>
-
-
-
-
-
-        </table>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let category of categories">
+                        <td>{{category.name}}</td>
+                        <td>{{category.image}}</td>
+                        <td><button type="button" class="btn btn-danger btn-sm"
+                                (click)="delete(category._id)">Eliminar</button></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
     </div>
+
 </div>
