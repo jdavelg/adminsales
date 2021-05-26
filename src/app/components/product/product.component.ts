@@ -64,4 +64,8 @@ export class ProductComponent implements OnInit {
 
   }
 
+  delete(){
+    
+  }
+
 }

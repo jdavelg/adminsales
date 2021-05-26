@@ -46,11 +46,13 @@
 
                 </thead>
                 <tbody>
-                    <tr *ngFor="let category of categories">
-                        <td>{{category.name}}</td>
-                        <td>{{category.image}}</td>
+                    <tr *ngFor="let product of brand.products">
+                        <td>{{product.name}}</td>
+                        <td>{{product.price}}</td>
+                        <td>{{product.image}}</td>
+                        <td>{{product.link}}</td>
                         <td><button type="button" class="btn btn-danger btn-sm"
-                                (click)="delete(category._id)">Eliminar</button></td>
+                                (click)="delete(product._id)">Eliminar</button></td>
                     </tr>
                 </tbody>
             </table>
