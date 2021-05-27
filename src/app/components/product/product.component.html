@@ -37,9 +37,10 @@
                 </div>
                 <div class="form-group">
                     <label for="image">Imagen</label>
-                    <input type="text" #image="ngModel" [(ngModel)]="product.image" class="form-control" name="image"
-                        required>
-                  <!--   <file-pond #myPond [options]="pondOptions" oninit="pondHandleInit()"
+                    <input type="file" (change)="onFileSelected($event)">
+                    <!--  <input type="text" #image="ngModel" [(ngModel)]="product.image" class="form-control" name="image"
+                        required> -->
+                    <!--   <file-pond #myPond [options]="pondOptions" oninit="pondHandleInit()"
                         onaddfile="pondHandleAddFile($event)" onactivatefile="pondHandleActivateFile($event)">
                     </file-pond> -->
                 </div>
@@ -49,10 +50,59 @@
                         required>
                 </div>
 
-                <button type="submit" class="btn btn-outline-success mt-3" [disabled]="registerForm.invalid">Guardar
-                    Nuevo Producto</button>
+                <button type="submit" class="btn btn-outline-success mt-3" [disabled]="registerForm.invalid">
+                    Guardar Nuevo Producto
+                </button>
             </form>
         </div>
+
+        <div class="container" *ngIf="updating">
+            <form #updateForm="ngForm" (ngSubmit)="onUpdate(updateForm)">
+                <div class="form-group">
+                    <label for="name">Nombre</label>
+                    <input type="text" #name="ngModel" [(ngModel)]="productUpdate.name" name="name" class="form-control"
+                        required>
+                </div>
+
+                <div class="form-group">
+                    <label for="brandId">Marca</label>
+                    <select class="form-select" name="brandId" #brandId="ngModel" [(ngModel)]="productUpdate.brandId"
+                        required >
+
+                        <option value="{{brand._id}}" *ngFor="let brand of brands" [selected]="brand._id == brandToUpdate">{{brand.name}}</option>
+
+                    </select>
+                </div>
+
+
+                <div class="form-group">
+                    <label for="price">Precio</label>
+                    <input type="number" #price="ngModel" [(ngModel)]="productUpdate.price" name="price" class="form-control"
+                        required>
+                </div>
+                <div class="form-group">
+                    <label for="image">Imagen</label>
+                    <input type="file" (change)="onFileSelected($event)">
+                    <!--  <input type="text" #image="ngModel" [(ngModel)]="product.image" class="form-control" name="image"
+                        required> -->
+                    <!--   <file-pond #myPond [options]="pondOptions" oninit="pondHandleInit()"
+                        onaddfile="pondHandleAddFile($event)" onactivatefile="pondHandleActivateFile($event)">
+                    </file-pond> -->
+                </div>
+                <div class="form-group">
+                    <label for="link">Link</label>
+                    <input type="text" #link="ngModel" [(ngModel)]="productUpdate.link" name="link" class="form-control"
+                        required>
+                </div>
+
+                <button type="submit" class="btn btn-outline-success mt-3" [disabled]="updateForm.invalid">
+                    Actualizar Producto
+                </button>
+            </form>
+        </div>
+
+
+
     </div>
     <div class="col-sm-8">
         <div class="pt-4 pr-4 pb-4 pl-4 mt-4 ml-4 mr-4 mb-2">
@@ -98,8 +148,15 @@
                             <td>{{product.image}}</td>
                             <td>{{product.link}}</td>
                             <td>
-                                <button type="button" class="btn btn-danger btn-sm"
-                                    (click)="delete(product._id, brand._id)">Eliminar</button>
+                                <div class="row">
+                                  <button type="button" class="btn btn-danger btn-sm"
+                                    (click)="delete(product._id, brand._id)">Eliminar</button>  
+                                </div>
+                                <div class="row">
+                                    <button type="button" class="btn btn-success btn-sm"
+                                    (click)="startUpdating(product._id, brand._id)">Editar</button>
+                                </div>
+                                
                             </td>
                         </tr>
                     </tbody>

@@ -16,15 +16,21 @@ import { FilePondComponent } from 'ngx-filepond/filepond.component';
 })
 export class ProductComponent implements OnInit {
 
-  public selectedBrand:any
+  public selectedBrand: any
   public brands: any;
   public product: Product
-  public status:any
+  public status: any
+  public selectedFile: any = null
+  updating: boolean = false
+  brandToUpdate: any
+
+  public productUpdate:Product
   constructor(
     private _brandService: BrandService,
     private _productService: ProductService
   ) {
-    this.product = new Product('', '', '', '', '')
+    this.product = new Product('', '', '', '', '');
+    this.productUpdate = new Product('', '', '', '', '')
   }
   @ViewChild('myPond') myPond: FilePondComponent | undefined
 
@@ -46,7 +52,7 @@ export class ProductComponent implements OnInit {
     console.log('FilePond has initialised', this.myPond);
   }
 
-  pondHandleAddFile(event: any) :any{
+  pondHandleAddFile(event: any): any {
     console.log('A file was added', event);
   }
 
@@ -64,7 +70,7 @@ export class ProductComponent implements OnInit {
         if (response.status == "success") {
           this.brands = response.marks
           console.log(this.brands);
-          
+
         }
       },
       error => {
@@ -76,6 +82,13 @@ export class ProductComponent implements OnInit {
   }
 
   onSubmit(product: any) {
+    const fd = new FormData();
+
+    fd.append('image', this.selectedFile, this.selectedFile.name)
+    /* {reportProgress:true,
+      observe:'events'
+    } */
+
     this._productService.save(this.product).subscribe(
       response => {
         if (response.status == "success") {
@@ -86,7 +99,7 @@ export class ProductComponent implements OnInit {
           )
           this.getProducts()
           product.reset()
-          this.status="success"
+          this.status = "success"
         }
       },
       error => {
@@ -95,13 +108,13 @@ export class ProductComponent implements OnInit {
           'Error al guardar el registro.',
           'error'
         )
-        this.status="error"
+        this.status = "error"
       }
     )
 
   }
 
-  delete(productId:any, brandId:any){
+  delete(productId: any, brandId: any) {
     Swal.fire({
       title: 'Estas segur@?',
       text: 'Eliminaras el registro y no se podrá recuperar!',
@@ -120,7 +133,7 @@ export class ProductComponent implements OnInit {
                 'El registro se ha eliminado.',
                 'success'
               )
-              
+
             } else {
               Swal.fire(
                 'Cancelado',
@@ -150,5 +163,33 @@ export class ProductComponent implements OnInit {
       }
     })
   }
+
+  onFileSelected(event: any) {
+    this.selectedFile = <File>event.target.files[0]
+  }
+
+  startUpdating(product: any, brand: any) {
+this._productService.getOne(product, brand).subscribe(
+  response=>{
+if (response.status=="success") {
+  this.productUpdate=response.product
+  this.updating=true
+  this.brandToUpdate=response.brandId
+}
+  },
+  err=>{
+console.log(err);
+
+  }
+)
+
+  }
+
+  onUpdate(brand: any) {
+    console.log(brand);
+
+  }
+
+
 
 }

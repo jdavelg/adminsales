@@ -44,4 +44,12 @@ export class ProductService {
       return this._http.delete(global.url+'product/removeproduct/'+productId+'/'+brandId, {headers:headers})
   }
 
+  getOne(productId:any, brandId:any):Observable<any>{
+
+    var headers = new HttpHeaders().set('Content-Type', 'application/json')
+      .set('Authorization', this._userService.getToken())
+
+
+      return this._http.get(global.url+'product/getproduct/'+productId+'/'+brandId, {headers:headers})
+  }
 }

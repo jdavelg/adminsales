@@ -15,12 +15,16 @@ export class BrandComponent implements OnInit {
   public brands: any
   public allempty: boolean
   public categories: any
+  public updating:boolean=false
+  public brandToUpdate:Brand
+  selectedFile: File | undefined;
   constructor(
     private _brandService: BrandService,
     private _categoryService: CategoryService
   ) {
     this.brand = new Brand('', '', '', '');
-    this.allempty = true
+    this.allempty = true;
+    this.brandToUpdate = new Brand('', '', '', '');
 
   }
 
@@ -148,7 +152,18 @@ export class BrandComponent implements OnInit {
 
   }
 
+  goUpdate(brand:any){
+    this.brandToUpdate=brand;
+    this.updating=true
+  }
 
+  onUpdate(brand:any){
+    console.log(this.brand);
+    
+  }
 
+  onFileSelected(event: any) {
+    this.selectedFile = <File>event.target.files[0]
+  }
 
 }
