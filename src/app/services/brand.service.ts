@@ -39,4 +39,15 @@ export class BrandService {
 
   }
 
+
+  update(brand:any):Observable<any>{
+    let brandId=brand._id
+   
+    let params = JSON.stringify(brand)
+    let headers = new HttpHeaders().set('Content-Type', 'application/json')
+      .set('Authorization', this._userservice.getToken())
+
+      return this._http.put(global.url + 'mark/update/'+brandId, params, { headers: headers })
+  }
+
 }

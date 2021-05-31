@@ -39,7 +39,11 @@ export class BannerComponent implements OnInit {
     )
   }
 
-  save(banner: any) {
+  delete(banner:any){
+
+  }
+
+  onSubmit(banner: any) {
     this._bannerService.save(this.banner).subscribe(
       response => {
         if (response.status == "success") {

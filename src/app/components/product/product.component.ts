@@ -24,7 +24,7 @@ export class ProductComponent implements OnInit {
   updating: boolean = false
   brandToUpdate: any
 
-  public productUpdate:Product
+  public productUpdate: Product
   constructor(
     private _brandService: BrandService,
     private _productService: ProductService
@@ -169,24 +169,50 @@ export class ProductComponent implements OnInit {
   }
 
   startUpdating(product: any, brand: any) {
-this._productService.getOne(product, brand).subscribe(
-  response=>{
-if (response.status=="success") {
-  this.productUpdate=response.product
-  this.updating=true
-  this.brandToUpdate=response.brandId
-}
-  },
-  err=>{
-console.log(err);
+    this._productService.getOne(product, brand).subscribe(
+      response => {
+        if (response.status == "success") {
+          this.productUpdate = response.product
+          this.updating = true
+          this.brandToUpdate = response.brandId
+        }
+      },
+      err => {
+        console.log(err);
 
-  }
-)
+      }
+    )
 
   }
 
   onUpdate(brand: any) {
-    console.log(brand);
+
+    this._productService.update(this.productUpdate).subscribe(
+      response => {
+        if (response.status == "success") {
+          Swal.fire(
+            'excelente',
+            'El registro se actualizó correctamente',
+            'success'
+          )
+          this.getProducts()
+        } else {
+          Swal.fire(
+            'Error',
+            'Ocurrio un error al actualizar el registro ',
+            'error'
+          )
+        }
+      },
+      error => {
+        Swal.fire(
+          'Error',
+          'Ocurrio un error al actualizar el registro ',
+          'error'
+        )
+
+      }
+    )
 
   }
 

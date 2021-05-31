@@ -17,6 +17,7 @@ export class BrandComponent implements OnInit {
   public categories: any
   public updating:boolean=false
   public brandToUpdate:Brand
+public idBrandCategory:any
   selectedFile: File | undefined;
   constructor(
     private _brandService: BrandService,
@@ -153,12 +154,41 @@ export class BrandComponent implements OnInit {
   }
 
   goUpdate(brand:any){
-    this.brandToUpdate=brand;
+    this.brandToUpdate=brand;  
+    console.log(this.brandToUpdate);
+    
     this.updating=true
   }
 
   onUpdate(brand:any){
-    console.log(this.brand);
+   
+    this._brandService.update(this.brandToUpdate).subscribe(
+      response=>{
+if (response.status=="success") {
+  Swal.fire(
+    'Muy bien',
+    'se actualizó el registro ',
+    'success'
+  )
+  this.getBrands()
+  this.updating=false
+}else{
+  Swal.fire(
+    'Error',
+    'Ocurrio un error al actualizar el registro ',
+    'error'
+  )
+}
+      },
+      error=>{
+        Swal.fire(
+          'Error',
+          'Ocurrio un error al actualizar el registro ',
+          'error'
+        )
+      }
+    )
+    
     
   }
 

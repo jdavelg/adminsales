@@ -39,7 +39,7 @@
                     </tr>
 
                 </thead>
-                <tbody>
+                <tbody *ngIf="categories!=undefined">
                     <tr *ngFor="let category of categories">
                         <td>{{category.name}}</td>
                         <td>{{category.image}}</td>

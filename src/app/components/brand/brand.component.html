@@ -73,9 +73,9 @@
 
                 <div class="form-group">
                     <label for="category">categoria</label>
-                    <select class="form-select" #category="ngModel" [(ngModel)]="brandToUpdate.category" name="category">
+                    <select class="form-select" #category="ngModel" [(ngModel)]="brandToUpdate.category" name="category" required>
 
-                        <option *ngFor="let category of categories" value="{{category._id}}" [selected]="brandToUpdate.category==category._id">{{category.name}}</option>
+                        <option *ngFor="let category of categories" value="{{category._id}}" >{{category.name}}</option>
 
                     </select>
                 </div>
@@ -99,7 +99,7 @@
                     </tr>
 
                 </thead>
-                <tbody>
+                <tbody *ngIf="brands!=undefined">
                     <tr *ngFor="let brand of brands">
                         <td>{{brand.name}}</td>
                         <td>{{brand.image}}</td>
