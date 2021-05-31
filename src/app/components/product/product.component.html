@@ -36,8 +36,8 @@
                         required>
                 </div>
                 <div class="form-group">
-                    <label for="image">Imagen</label>
-                    <input type="file" (change)="onFileSelected($event)">
+                    <label for="image" class="form-label">Imagen</label>
+                    <input type="file" (change)="onFileSelected($event)" class="form-control">
                     <!--  <input type="text" #image="ngModel" [(ngModel)]="product.image" class="form-control" name="image"
                         required> -->
                     <!--   <file-pond #myPond [options]="pondOptions" oninit="pondHandleInit()"
@@ -67,9 +67,10 @@
                 <div class="form-group">
                     <label for="brandId">Marca</label>
                     <select class="form-select" name="brandId" #brandId="ngModel" [(ngModel)]="productUpdate.brandId"
-                        required >
+                        required>
 
-                        <option value="{{brand._id}}" *ngFor="let brand of brands" [selected]="brand._id == brandToUpdate">{{brand.name}}</option>
+                        <option value="{{brand._id}}" *ngFor="let brand of brands"
+                            [selected]="brand._id == brandToUpdate">{{brand.name}}</option>
 
                     </select>
                 </div>
@@ -77,12 +78,12 @@
 
                 <div class="form-group">
                     <label for="price">Precio</label>
-                    <input type="number" #price="ngModel" [(ngModel)]="productUpdate.price" name="price" class="form-control"
-                        required>
+                    <input type="number" #price="ngModel" [(ngModel)]="productUpdate.price" name="price"
+                        class="form-control" required>
                 </div>
                 <div class="form-group">
-                    <label for="image">Imagen</label>
-                    <input type="file" (change)="onFileSelected($event)">
+                    <label for="image" class="form-label">Imagen</label>
+                    <input type="file" (change)="onFileSelected($event)" class="form-control">
                     <!--  <input type="text" #image="ngModel" [(ngModel)]="product.image" class="form-control" name="image"
                         required> -->
                     <!--   <file-pond #myPond [options]="pondOptions" oninit="pondHandleInit()"
@@ -148,15 +149,18 @@
                             <td>{{product.image}}</td>
                             <td>{{product.link}}</td>
                             <td>
-                                <div class="row">
-                                  <button type="button" class="btn btn-danger btn-sm"
-                                    (click)="delete(product._id, brand._id)">Eliminar</button>  
+                                <div class="container">
+                                    <div class="row mb-1">
+                                        <button type="button" class="btn btn-danger btn-sm"
+                                            (click)="delete(product._id, brand._id)">Eliminar</button>
+                                    </div>
+                                    <div class="row">
+                                        <button type="button" class="btn btn-success btn-sm"
+                                            (click)="startUpdating(product._id, brand._id)">Editar</button>
+                                    </div>
                                 </div>
-                                <div class="row">
-                                    <button type="button" class="btn btn-success btn-sm"
-                                    (click)="startUpdating(product._id, brand._id)">Editar</button>
-                                </div>
-                                
+
+
                             </td>
                         </tr>
                     </tbody>

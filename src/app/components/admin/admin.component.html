@@ -1,28 +1,147 @@
-<nav class="navbar navbar-expand-lg navbar-light bg-light" *ngIf="token!=undefined && token!='0'">
-    <div class="container-fluid">
-        <a class="navbar-brand" href="#">
-            <img src="../assets/images/logo.png" class="logosales">
-            Big<strong>Sales</strong>SV
-        </a>
-        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup"
-            aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-        </button>
-        <div class="collapse navbar-collapse ml-4" id="navbarNavAltMarkup">
-            <div class="navbar-nav">
+<div id="wrapper">
 
-                <a class="nav-link" [routerLink]="[ '/product' ]">Productos</a>
-                <a class="nav-link" [routerLink]="[ '/brand' ]">Marcas</a>
-                <a class="nav-link" [routerLink]="[ '/category' ]">Categorias</a>
+    <!-- Sidebar -->
+    <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar"
+        *ngIf="token!=undefined && token!='0'">
 
+        <!-- Sidebar - Brand -->
+        <a class="sidebar-brand d-flex align-items-center justify-content-center" [routerLink]="[ '/' ]">
+            <div class="sidebar-brand-icon rotate-n-15">
+                <ngx-fa name="fas  fa-laugh-wink" size="lg"></ngx-fa>
             </div>
-        </div>
-        <div class="navbar navbar-right">
+            <div class="sidebar-brand-text mx-3"><strong>Big</strong>Sales <strong>sv</strong></div>
+        </a>
 
-            <button class="btn btn-outline-primary" type="button" (click)="logout()">Cerrar Sesion</button>
+        <!-- Divider -->
+        <hr class="sidebar-divider my-0">
+
+        <!-- Nav Item - Dashboard -->
+        <li class="nav-item active">
+            <a class="nav-link" href="index.html">
+                <ngx-fa name="fas fa-fw fa-tachometer-alt" size="lg"></ngx-fa>
+                <span>Dashboard</span>
+            </a>
+        </li>
+
+        <!-- Divider -->
+        <hr class="sidebar-divider">
+
+        <!-- Heading -->
+        <div class="sidebar-heading">
+            Interface
+        </div>
+
+        <!-- Nav Item - Pages Collapse Menu -->
+        <li class="nav-item">
+            <a class="nav-link " [routerLink]="[ '/brand' ]">
+                <ngx-fa name="fas fa-align-center" size="lg"></ngx-fa>&nbsp;
+                <span>Marcas</span>
+            </a>
+        </li>
+
+        <!-- Nav Item - Utilities Collapse Menu -->
+        <li class="nav-item">
+            <a class="nav-link " href="#">
+                <ngx-fa name="far fa-image" size="lg" [routerLink]="[ '/banner' ]"></ngx-fa> &nbsp;
+                <span>Banners</span>
+            </a>
+
+        </li>
+
+        <!-- Divider -->
+        <hr class="sidebar-divider">
+
+
+
+        <!-- Nav Item - Pages Collapse Menu -->
+        <li class="nav-item">
+            <a class="nav-link " [routerLink]="[ '/category' ]">
+                <ngx-fa name="fas fa-sort" size="lg"></ngx-fa>&nbsp;
+                <span>Categorias</span>
+            </a>
+
+        </li>
+        <li class="nav-item">
+            <a class="nav-link " [routerLink]="[ '/product' ]">
+                <ngx-fa name="fab fa-puzzle-piece" size="lg"></ngx-fa>&nbsp;
+                <span>Productos</span>
+            </a>
+
+        </li>
+
+
+
+
+
+        <!-- Divider -->
+        <hr class="sidebar-divider d-none d-md-block">
+
+
+
+
+
+    </ul>
+    <!-- End of Sidebar -->
+
+    <!-- Content Wrapper -->
+    <div id="content-wrapper" class="d-flex flex-column">
+
+        <!-- Main Content -->
+        <div id="content">
+
+            <!-- Topbar -->
+
+            <nav class="navbar navbar-expand-lg navbar-light bg-light" *ngIf="token!=undefined && token!='0'">
+                <div class="container-fluid">
+                    <a class="navbar-brand" href="#">
+                        <img src="../assets/images/logo.png" class="logosales">
+                        Big<strong>Sales</strong>SV
+                    </a>
+                    <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+                        data-bs-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false"
+                        aria-label="Toggle navigation">
+                        <span class="navbar-toggler-icon"></span>
+                    </button>
+                    <div class="collapse navbar-collapse ml-4" id="navbarNavAltMarkup">
+                        <div class="navbar-nav">
+
+                            <a class="nav-link" [routerLink]="[ '/product' ]">Productos</a>
+                            <a class="nav-link" [routerLink]="[ '/brand' ]">Marcas</a>
+                            <a class="nav-link" [routerLink]="[ '/category' ]">Categorias</a>
+
+                        </div>
+                    </div>
+                    <div class="navbar navbar-right">
+
+                        <button class="btn btn-outline-primary" type="button" (click)="logout()">Cerrar Sesion</button>
+
+                    </div>
+                </div>
+            </nav>
+
+            <!-- End of Topbar -->
+
+            <!-- Begin Page Content -->
+            <div class="container-fluid">
+
+                <router-outlet></router-outlet>
+            </div>
+            <!-- /.container-fluid -->
 
         </div>
+        <!-- End of Main Content -->
+
+        <!-- Footer -->
+        <footer class="sticky-footer bg-white">
+            <div class="container my-auto">
+                <div class="copyright text-center my-auto">
+                    <span>Copyright &copy; <strong>Big</strong>Sales 2021</span>
+                </div>
+            </div>
+        </footer>
+        <!-- End of Footer -->
+
     </div>
-</nav>
+    <!-- End of Content Wrapper -->
 
-<router-outlet></router-outlet> 
+</div>

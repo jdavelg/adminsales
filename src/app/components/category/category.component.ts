@@ -51,6 +51,7 @@ export class CategoryComponent implements OnInit {
         if (response.status == "success") {
           this.status = "success"
           this.getCategories()
+          category.reset()
 
         }
 
@@ -63,7 +64,7 @@ export class CategoryComponent implements OnInit {
     )
   }
 
-  delete(id:any){
+  delete(id: any) {
     Swal.fire({
       title: 'Estas segur@?',
       text: 'Eliminaras el registro y no se podrá recuperar!',
@@ -74,34 +75,34 @@ export class CategoryComponent implements OnInit {
     }).then((result) => {
       if (result.isConfirmed) {
         this._categoryService.delete(id).subscribe(
-          response=>{
-if (response.status=="success") {
-  Swal.fire(
-    'eliminado!',
-    'El registro se ha eliminado.',
-    'success'
-  )
-  this.getCategories()
-}else{
-  Swal.fire(
-    'Cancelado',
-    'Error,No se eliminó el registro ',
-    'error'
-  )
-}
+          response => {
+            if (response.status == "success") {
+              Swal.fire(
+                'eliminado!',
+                'El registro se ha eliminado.',
+                'success'
+              )
+              this.getCategories()
+            } else {
+              Swal.fire(
+                'Cancelado',
+                'Error,No se eliminó el registro ',
+                'error'
+              )
+            }
 
           },
-          error=>{
+          error => {
             Swal.fire(
               'Cancelado',
               'Error,No se eliminó el registro ',
               'error'
             )
-            console.log(error);           
+            console.log(error);
 
           }
         )
-  
+
       } else if (result.dismiss === Swal.DismissReason.cancel) {
         Swal.fire(
           'Cancelado',
