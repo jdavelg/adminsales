@@ -1,43 +1,42 @@
 <div class="centerwrapper">
+  
 
-    <div class="alert alert-danger" role="alert" *ngIf="alerta">
-        Email o contraseña incorrecta
-    </div>
     <div class="container h-100">
         <div class="d-flex justify-content-center h-100">
             <div class="user_card">
                 <div class="d-flex justify-content-center">
                     <div class="brand_logo_container">
-                        <img src="../../../assets/images/logo.png"
-                            class="brand_logo" alt="Logo">
+                        <img src="../../../assets/images/logo.png" class="brand_logo" alt="Logo">
                     </div>
                 </div>
                 <div class="d-flex justify-content-center form_container">
                     <form #loginForm="ngForm" (ngSubmit)="onSubmit(loginForm)">
                         <div class="input-group mb-3">
+                            <div *ngIf="email.invalid && email.touched" class="invalid-tooltip d-block">
+                                El mail no es válido
+                            </div>
                             <div class="input-group-append">
                                 <span class="input-group-text">
                                     <ngx-fa name="fas fa-user" [animation]="true" size="lg"></ngx-fa>
                                 </span>
                             </div>
                             <input type="email" #email="ngModel" [(ngModel)]="user.email" name="email"
-                                class="form-control input_user" value="" placeholder="email" required>
-                            <small *ngIf="email.invalid && email.touched" class="invalid-feedback d-block">
-                                El mail no es válido
-                            </small>
+                                class="form-control input_user"  placeholder="email" required>
+
                         </div>
                         <div class="input-group mb-2">
-
+                            <div *ngIf="password.invalid && password.touched" class="invalid-tooltip d-block">
+                                la contraseña no es válida
+                            </div>
                             <div class="input-group-append">
                                 <span class="input-group-text">
                                     <ngx-fa name="fas fa-key" [animation]="true" flip="yes" size="lg"></ngx-fa>
                                 </span>
                             </div>
+
                             <input type="password" name="password" #password="ngModel" [(ngModel)]="user.password"
-                                class="form-control input_pass" value="" placeholder="password" required>
-                            <small *ngIf="password.invalid && password.touched" class="invalid-feedback d-block">
-                                la contraseña no es válida
-                            </small>
+                                class="form-control input_pass"  placeholder="password" required>
+
                         </div>
 
                         <div class="d-flex justify-content-center mt-3 login_container">
@@ -55,6 +54,12 @@
           </div>
         </div> -->
             </div>
+        </div>
+    </div>
+    <div class="container mt-3">
+        <div class="alert alert-danger alert-dismissible fade show" role="alert" *ngIf="alerta" style="text-align: center !important;">
+            <strong>Error!</strong> Usuario o Contraseña incorrecta.
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
         </div>
     </div>
 </div>
