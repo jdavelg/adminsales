@@ -41,6 +41,54 @@ export class BannerComponent implements OnInit {
 
   delete(banner:any){
 
+    Swal.fire({
+      title: 'Estas segur@?',
+      text: 'Eliminaras el registro y no se podrá recuperar!',
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonText: 'Sí, la quiero eliminar!',
+      cancelButtonText: 'No, cancelar'
+    }).then((result) => {
+      if (result.isConfirmed) {
+        this._bannerService.delete(banner).subscribe(
+          response => {
+            if (response.status == "success") {
+              this.getAll()
+              Swal.fire(
+                'eliminado!',
+                'El registro se ha eliminado.',
+                'success'
+              )
+             
+            } else {
+              Swal.fire(
+                'Cancelado',
+                'Error,No se eliminó el registro ',
+                'error'
+              )
+            }
+
+          },
+          error => {
+            Swal.fire(
+              'Cancelado',
+              'Error,No se eliminó el registro ',
+              'error'
+            )
+            console.log(error);
+
+          }
+        )
+
+      } else if (result.dismiss === Swal.DismissReason.cancel) {
+        Swal.fire(
+          'Cancelado',
+          'No se eliminó el registro :)',
+          'error'
+        )
+      }
+    })
+
   }
 
   onSubmit(banner: any) {
