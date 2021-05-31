@@ -34,4 +34,12 @@ export class BannerService {
 
   }
 
+  delete(bannerId: any): Observable<any> {
+    let headers = new HttpHeaders().set('Content-Type', 'application/json')
+      .set('Authorization', this._userService.getToken())
+
+
+    return this._http.delete(global.url + 'banner/deletebanner/' + bannerId, { headers: headers })
+  }
+
 }
