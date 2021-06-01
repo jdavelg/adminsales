@@ -14,13 +14,14 @@ import { UserGuard } from './guards/user.guard';
 
 
 const routes: Routes = [
-  { path: 'login',canActivate:[IdentifyGuard], component: LoginComponent },
+  { path: 'login', canActivate: [IdentifyGuard], component: LoginComponent },
   { path: '', redirectTo: 'login', pathMatch: 'full' },
-  { path: 'admin',   canActivate:[UserGuard],   component: AdminComponent },
-  { path: 'category', /* canActivate:[UserGuard], */component: CategoryComponent },
-  { path: 'brand', canActivate:[UserGuard],component: BrandComponent },
-  { path: 'product',canActivate:[UserGuard], component: ProductComponent },
-  { path: 'home',canActivate:[UserGuard], component: HomeadminComponent },
+  { path: 'admin', canActivate: [UserGuard], component: AdminComponent },
+  { path: 'category', canActivate: [UserGuard], component: CategoryComponent },
+  { path: 'brand', canActivate: [UserGuard], component: BrandComponent },
+  { path: 'product', canActivate: [UserGuard], component: ProductComponent },
+  { path: 'home', canActivate: [UserGuard], component: HomeadminComponent },
+  { path: '**', canActivate: [UserGuard], component: CategoryComponent },
 ];
 
 @NgModule({
