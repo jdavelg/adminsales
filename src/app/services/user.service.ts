@@ -26,13 +26,19 @@ export class UserService {
 
   uploadImage(image: any): Observable<any> {
 
-    console.log(image);
+    /*     console.log(image); */
 
     /*   let headers = new HttpHeaders().set('Content-Type', 'multipart/form-data') */
 
 
     return this._http.post(global.upload, image/* , { headers: headers } */)
   }
+  getSuscriptors():Observable<any> {
+
+    let headers = new HttpHeaders().set('Authorization', this.getToken())
+    return this._http.get(global.url + 'suscription/getsuscriptions',{ headers: headers })
+  }
+
 
   getToken() {
     let token = localStorage.getItem('token')
