@@ -24,13 +24,23 @@ export class UserService {
     return this._http.post(global.url + 'user/login', params, { headers: headers })
   }
 
-  getToken(){
-    let token=localStorage.getItem('token')
-    if (token!=undefined) {
+  uploadImage(image: any): Observable<any> {
+
+    console.log(image);
+
+    /*   let headers = new HttpHeaders().set('Content-Type', 'multipart/form-data') */
+
+
+    return this._http.post(global.upload, image/* , { headers: headers } */)
+  }
+
+  getToken() {
+    let token = localStorage.getItem('token')
+    if (token != undefined) {
       return token
-    } else{
+    } else {
       return '0'
     }
-  
+
   }
 }

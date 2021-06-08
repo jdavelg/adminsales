@@ -10,19 +10,18 @@
             <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
         </div>
 
-        <div class="container mb-3" >
+        <div class="container mb-3">
             <form #registerForm="ngForm" (ngSubmit)="onSubmit(registerForm)">
                 <div class="form-group">
                     <label for="description">descripcion</label>
-                    <input type="text" #description="ngModel" [(ngModel)]="banner.description" name="description" class="form-control"
-                        required>
+                    <input type="text" #description="ngModel" [(ngModel)]="banner.description" name="description"
+                        class="form-control" required>
                 </div>
 
                 <div class="form-group">
                     <label for="image">Imagen</label>
-                     <input type="text" #image="ngModel" [(ngModel)]="banner.image" class="form-control" name="image"
-                        required> 
-                   <!--  <input type="file" (change)="onFileSelected($event)"> -->
+                    <input type="file" (change)="onFileSelected($event)" class="form-control">
+                    <!--  <input type="file" (change)="onFileSelected($event)"> -->
                 </div>
 
 
@@ -31,7 +30,7 @@
                     Nuevo banner</button>
             </form>
         </div>
- <!--   <div class="container mb-3" *ngIf="updating">
+        <!--   <div class="container mb-3" *ngIf="updating">
             <h4 style=" text-align: center;"><span class="badge bg-secondary text-light ">Editar Banner</span></h4>
             <form #updateForm="ngForm" (ngSubmit)="onUpdate(updateForm)">
                 <div class="form-group">
@@ -60,24 +59,31 @@
                     <tr>
                         <th>descripcion</th>
                         <th>imagen</th>
-                       
+                        <th>acciones</th>
+
                     </tr>
 
                 </thead>
                 <tbody *ngIf="banners!=undefined">
                     <tr *ngFor="let banner of banners">
                         <td>{{banner.description}}</td>
-                        <td>{{banner.image}}</td>
-                      
+                        <td>
+                            <div class="containerlist">
+                                <img src="{{banner.image}}" alt="" class="imglist">
+                            </div>
+                        </td>
+
                         <td>
                             <div class="container">
-                                 <div class="row">
-                                 <button type="button" class="btn btn-danger btn-sm ml-2"
-                                (click)="delete(banner._id)">Eliminar</button> 
-                            </div>                  
+                                
+                                    <button type="button" class="btn btn-danger btn-sm ml-2"
+                                        (click)="delete(banner._id)">Eliminar</button>
+                            
+
+
                             </div>
-                           
-                          
+
+
                         </td>
                     </tr>
                 </tbody>

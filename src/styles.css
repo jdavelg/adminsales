@@ -4,3 +4,16 @@
     max-width: 120px;
     max-height: 120px;
 }
+
+.containerlist{
+    max-width: 100px !important;
+    max-height: 100px !important;
+    overflow: hidden;
+    display: block;
+}
+
+.imglist{
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}

@@ -1,7 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { Brand } from 'src/app/models/brand';
+import { global } from 'src/app/models/global';
 import { BrandService } from 'src/app/services/brand.service';
 import { CategoryService } from 'src/app/services/category.service';
+import { UserService } from 'src/app/services/user.service';
 import Swal from 'sweetalert2'
 
 @Component({
@@ -15,13 +17,14 @@ export class BrandComponent implements OnInit {
   public brands: any
   public allempty: boolean
   public categories: any
-  public updating:boolean=false
-  public brandToUpdate:Brand
-public idBrandCategory:any
-  selectedFile: File | undefined;
+  public updating: boolean = false
+  public brandToUpdate: Brand
+  public idBrandCategory: any
+  selectedFile: File | any;
   constructor(
     private _brandService: BrandService,
-    private _categoryService: CategoryService
+    private _categoryService: CategoryService,
+    private _userService: UserService
   ) {
     this.brand = new Brand('', '', '', '');
     this.allempty = true;
@@ -72,24 +75,54 @@ public idBrandCategory:any
   }
 
   onSubmit(brand: any) {
-    console.log(this.brand);
-    this._brandService.save(this.brand).subscribe(
+    let fd = new FormData();
+
+    fd.append('thumbnail', this.selectedFile, this.selectedFile.name)
+
+
+
+    this._userService.uploadImage(fd).subscribe(
       response => {
-        if (response.status == "success") {
-          brand.reset()
-          this.status = "success"
-          Swal.fire(
-            'Guardado!',
-            'El registro se ha guardado.',
-            'success'
+        if (response.path) {
+          console.log(response.path);
+          let firstPath = response.path
+
+          let pathtoadd = firstPath.split("https://clips-vod-tcs.s3.amazonaws.com/")
+          let definitelypath = global.toReplace + pathtoadd[1]
+          console.log(definitelypath);
+
+          this.brand.image = definitelypath
+          this._brandService.save(this.brand).subscribe(
+            response => {
+              if (response.status == "success") {
+                brand.reset()
+                this.status = "success"
+                Swal.fire(
+                  'Guardado!',
+                  'El registro se ha guardado.',
+                  'success'
+                )
+              }
+              this.getBrands()
+              this.selectedFile = undefined
+
+
+            },
+            error => {
+              this.status = "error"
+              console.log(error);
+              Swal.fire(
+                'Error!',
+                'El registro no se ha guardado.',
+                'error'
+              )
+            }
           )
+
         }
-        this.getBrands()
 
       },
       error => {
-        this.status = "error"
-        console.log(error);
         Swal.fire(
           'Error!',
           'El registro no se ha guardado.',
@@ -97,6 +130,9 @@ public idBrandCategory:any
         )
       }
     )
+
+
+
 
   }
 
@@ -153,47 +189,110 @@ public idBrandCategory:any
 
   }
 
-  goUpdate(brand:any){
-    this.brandToUpdate=brand;  
+  goUpdate(brand: any) {
+    this.brandToUpdate = brand;
     console.log(this.brandToUpdate);
-    
-    this.updating=true
+
+    this.updating = true
   }
 
-  onUpdate(brand:any){
-   
-    this._brandService.update(this.brandToUpdate).subscribe(
-      response=>{
-if (response.status=="success") {
-  Swal.fire(
-    'Muy bien',
-    'se actualizó el registro ',
-    'success'
-  )
-  this.getBrands()
-  this.updating=false
-}else{
-  Swal.fire(
-    'Error',
-    'Ocurrio un error al actualizar el registro ',
-    'error'
-  )
-}
-      },
-      error=>{
-        Swal.fire(
-          'Error',
-          'Ocurrio un error al actualizar el registro ',
-          'error'
-        )
-      }
-    )
-    
-    
+  onUpdate(brand: any) {
+
+    if (this.selectedFile != undefined && this.selectedFile != null) {
+      let fd = new FormData();
+
+      fd.append('thumbnail', this.selectedFile, this.selectedFile.name)
+
+      this._userService.uploadImage(fd).subscribe(
+        response => {
+          if (response.path) {
+            console.log(response.path);
+            let firstPath = response.path
+
+            let pathtoadd = firstPath.split("https://clips-vod-tcs.s3.amazonaws.com/")
+            let definitelypath = global.toReplace + pathtoadd[1]
+            console.log(definitelypath);
+
+            this.brandToUpdate.image = definitelypath
+            /* start update */
+
+            this._brandService.update(this.brandToUpdate).subscribe(
+              response => {
+                if (response.status == "success") {
+                  Swal.fire(
+                    'Muy bien',
+                    'se actualizó el registro ',
+                    'success'
+                  )
+                  this.getBrands()
+                  this.updating = false
+                } else {
+                  Swal.fire(
+                    'Error',
+                    'Ocurrio un error al actualizar el registro ',
+                    'error'
+                  )
+                }
+              },
+              error => {
+                Swal.fire(
+                  'Error',
+                  'Ocurrio un error al actualizar el registro ',
+                  'error'
+                )
+              }
+            )
+
+          }
+
+        },
+        error => {
+          Swal.fire(
+            'Error!',
+            'El registro no se ha guardado.',
+            'error'
+          )
+        }
+      )
+    } else {
+      this._brandService.update(this.brandToUpdate).subscribe(
+        response => {
+          if (response.status == "success") {
+            Swal.fire(
+              'Muy bien',
+              'se actualizó el registro ',
+              'success'
+            )
+            this.getBrands()
+            this.updating = false
+          } else {
+            Swal.fire(
+              'Error',
+              'Ocurrio un error al actualizar el registro ',
+              'error'
+            )
+          }
+        },
+        error => {
+          Swal.fire(
+            'Error',
+            'Ocurrio un error al actualizar el registro ',
+            'error'
+          )
+        }
+      )
+    }
+
+
+
+
+
   }
 
   onFileSelected(event: any) {
     this.selectedFile = <File>event.target.files[0]
+    console.log(this.selectedFile);
+
   }
 
 }

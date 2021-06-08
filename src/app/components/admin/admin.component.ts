@@ -8,26 +8,26 @@ import Swal from 'sweetalert2';
   templateUrl: './admin.component.html',
   styleUrls: ['./admin.component.css']
 })
-export class AdminComponent implements   DoCheck {
+export class AdminComponent implements DoCheck {
 
   public token: any;
 
 
   constructor(
-    private _userService:UserService,
-    private _router:Router
+    private _userService: UserService,
+    private _router: Router
   ) {
-this.token= this._userService.getToken()
+    this.token = this._userService.getToken()
   }
 
   ngDoCheck(): void {
-    this.token= this._userService.getToken()
- 
-    
+    this.token = this._userService.getToken()
+
+
   }
 
 
-  logout(){
+  logout() {
     Swal.fire({
       title: 'Estas segur@?',
       text: 'Cerrar sesion de administrador',
@@ -43,7 +43,7 @@ this.token= this._userService.getToken()
           'sesion de administrador cerrada',
           'success'
         )
-        
+
         this._router.navigate(['/login'])
 
       } else if (result.dismiss === Swal.DismissReason.cancel) {

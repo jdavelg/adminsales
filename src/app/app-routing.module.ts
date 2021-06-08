@@ -3,6 +3,7 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { AppComponent } from './app.component';
 import { AdminComponent } from './components/admin/admin.component';
+import { BannerComponent } from './components/banner/banner.component';
 import { BrandComponent } from './components/brand/brand.component';
 import { CategoryComponent } from './components/category/category.component';
 import { HomeadminComponent } from './components/homeadmin/homeadmin.component';
@@ -19,6 +20,7 @@ const routes: Routes = [
   { path: 'admin', canActivate: [UserGuard], component: AdminComponent },
   { path: 'category', canActivate: [UserGuard], component: CategoryComponent },
   { path: 'brand', canActivate: [UserGuard], component: BrandComponent },
+  { path: 'banner', canActivate: [UserGuard], component: BannerComponent },
   { path: 'product', canActivate: [UserGuard], component: ProductComponent },
   { path: 'home', canActivate: [UserGuard], component: HomeadminComponent },
   { path: '**', canActivate: [UserGuard], component: CategoryComponent },

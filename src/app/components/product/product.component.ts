@@ -8,6 +8,8 @@ import Swal from 'sweetalert2'
 
 import { FilePondOptions } from 'filepond';
 import { FilePondComponent } from 'ngx-filepond/filepond.component';
+import { UserService } from 'src/app/services/user.service';
+import { global } from 'src/app/models/global';
 
 @Component({
   selector: 'app-product',
@@ -27,7 +29,8 @@ export class ProductComponent implements OnInit {
   public productUpdate: Product
   constructor(
     private _brandService: BrandService,
-    private _productService: ProductService
+    private _productService: ProductService,
+    private _userService: UserService
   ) {
     this.product = new Product('', '', '', '', '');
     this.productUpdate = new Product('', '', '', '', '')
@@ -48,17 +51,17 @@ export class ProductComponent implements OnInit {
     }
   ]
 
-  pondHandleInit() {
-    console.log('FilePond has initialised', this.myPond);
-  }
-
-  pondHandleAddFile(event: any): any {
-    console.log('A file was added', event);
-  }
-
-  pondHandleActivateFile(event: any) {
-    console.log('A file was activated', event)
-  }
+  /*  pondHandleInit() {
+     console.log('FilePond has initialised', this.myPond);
+   }
+ 
+   pondHandleAddFile(event: any): any {
+     console.log('A file was added', event);
+   }
+ 
+   pondHandleActivateFile(event: any) {
+     console.log('A file was activated', event)
+   } */
 
   ngOnInit(): void {
     this.getProducts()
@@ -68,8 +71,7 @@ export class ProductComponent implements OnInit {
     this._brandService.getAll().subscribe(
       response => {
         if (response.status == "success") {
-          this.brands = response.marks
-          console.log(this.brands);
+          this.brands = response.marks        
 
         }
       },
@@ -84,33 +86,63 @@ export class ProductComponent implements OnInit {
   onSubmit(product: any) {
     const fd = new FormData();
 
-    fd.append('image', this.selectedFile, this.selectedFile.name)
+    fd.append('thumbnail', this.selectedFile, this.selectedFile.name)
     /* {reportProgress:true,
       observe:'events'
     } */
 
-    this._productService.save(this.product).subscribe(
+    this._userService.uploadImage(fd).subscribe(
       response => {
-        if (response.status == "success") {
-          Swal.fire(
-            'Guardado!',
-            'El registro se ha guardado.',
-            'success'
+        if (response.path) {
+          console.log(response.path);
+          let firstPath = response.path
+
+          let pathtoadd = firstPath.split("https://clips-vod-tcs.s3.amazonaws.com/")
+          let definitelypath = global.toReplace + pathtoadd[1]
+          console.log(definitelypath);
+
+          this.product.image = definitelypath
+          /* start product */
+          this._productService.save(this.product).subscribe(
+            response => {
+              if (response.status == "success") {
+                Swal.fire(
+                  'Guardado!',
+                  'El registro se ha guardado.',
+                  'success'
+                )
+                this.getProducts()
+                product.reset()
+                this.status = "success"
+                this.selectedFile = undefined
+
+              }
+            },
+            error => {
+              Swal.fire(
+                'Error!',
+                'Error al guardar el registro.',
+                'error'
+              )
+              this.status = "error"
+            }
           )
-          this.getProducts()
-          product.reset()
-          this.status = "success"
+
         }
+
       },
       error => {
         Swal.fire(
           'Error!',
-          'Error al guardar el registro.',
+          'El registro no se ha guardado.',
           'error'
         )
-        this.status = "error"
       }
     )
+
+
+
+
 
   }
 
@@ -185,34 +217,104 @@ export class ProductComponent implements OnInit {
 
   }
 
-  onUpdate(brand: any) {
+  onUpdate(product: any) {
+    if (this.selectedFile != undefined && this.selectedFile != null) {
+      const fd = new FormData();
 
-    this._productService.update(this.productUpdate).subscribe(
-      response => {
-        if (response.status == "success") {
+      fd.append('thumbnail', this.selectedFile, this.selectedFile.name)
+      /* {reportProgress:true,
+        observe:'events'
+      } */
+
+      this._userService.uploadImage(fd).subscribe(
+        response => {
+          if (response.path) {
+            console.log(response.path);
+            let firstPath = response.path
+
+            let pathtoadd = firstPath.split("https://clips-vod-tcs.s3.amazonaws.com/")
+            let definitelypath = global.toReplace + pathtoadd[1]
+            console.log(definitelypath);
+
+            this.productUpdate.image = definitelypath
+            /* start updating */
+            this._productService.update(this.productUpdate).subscribe(
+              response => {
+                if (response.status == "success") {
+                  Swal.fire(
+                    'excelente',
+                    'El registro se actualizó correctamente',
+                    'success'
+                  )
+                  product.reset()
+                  this.getProducts()
+                  this.updating = false
+                } else {
+                  Swal.fire(
+                    'Error',
+                    'Ocurrio un error al actualizar el registro ',
+                    'error'
+                  )
+                }
+              },
+              error => {
+                Swal.fire(
+                  'Error',
+                  'Ocurrio un error al actualizar el registro',
+                  'error'
+                )
+
+              }
+            )
+
+
+          }
+
+        },
+        error => {
           Swal.fire(
-            'excelente',
-            'El registro se actualizó correctamente',
-            'success'
-          )
-          this.getProducts()
-        } else {
-          Swal.fire(
-            'Error',
-            'Ocurrio un error al actualizar el registro ',
+            'Error!',
+            'El registro no se ha guardado.',
             'error'
           )
         }
-      },
-      error => {
-        Swal.fire(
-          'Error',
-          'Ocurrio un error al actualizar el registro ',
-          'error'
-        )
+      )
+    } else {
+      /* start updating */
+      this._productService.update(this.productUpdate).subscribe(
+        response => {
+          if (response.status == "success") {
+            Swal.fire(
+              'excelente',
+              'El registro se actualizó correctamente',
+              'success'
+            )
+            product.reset()
+            this.getProducts()
+            this.updating = false
+          } else {
+            Swal.fire(
+              'Error',
+              'Ocurrio un error al actualizar el registro ',
+              'error'
+            )
+          }
+        },
+        error => {
+          Swal.fire(
+            'Error',
+            'Ocurrio un error al actualizar el registro',
+            'error'
+          )
 
-      }
-    )
+        }
+      )
+
+    }
+
+
+
+
 
   }
 
