@@ -33,10 +33,10 @@ export class UserService {
 
     return this._http.post(global.upload, image/* , { headers: headers } */)
   }
-  getSuscriptors():Observable<any> {
+  getSuscriptors(): Observable<any> {
 
     let headers = new HttpHeaders().set('Authorization', this.getToken())
-    return this._http.get(global.url + 'suscription/getsuscriptions',{ headers: headers })
+    return this._http.get(global.url + 'suscription/getsuscriptions', { headers: headers })
   }
 
 

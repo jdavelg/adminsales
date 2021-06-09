@@ -1,1 +1,89 @@
-<p>suscriptors works!</p>
+<div class="row mt-4">
+    <div class="col-sm-8">
+        <h4 style=" text-align: center;"><span class="badge bg-secondary text-light ">Personas suscritas</span></h4>
+        <div class="alert alert-danger alert-dismissible fade show" role="alert" *ngIf="status=='error'">
+            <strong>Error!</strong> Hubo un error al realizar la peticion.
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+        <div class="alert alert-success alert-dismissible fade show" role="alert" *ngIf="status=='success'">
+            <strong>Muy Bien</strong> La peticion se realizó con exito.
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+
+        <!--    <div class="container mb-3">
+            <form #registerForm="ngForm" (ngSubmit)="onSubmit(registerForm)">
+                <div class="form-group">
+                    <label for="description">descripcion</label>
+                    <input type="text" #description="ngModel" [(ngModel)]="banner.description" name="description"
+                        class="form-control" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="image">Imagen</label>
+                    <input type="file" (change)="onFileSelected($event)" class="form-control">
+                  
+                </div>
+
+
+
+                <button type="submit" class="btn btn-outline-success mt-3" [disabled]="registerForm.invalid">Guardar
+                    Nuevo banner</button>
+            </form>
+        </div> -->
+        <!--   <div class="container mb-3" *ngIf="updating">
+            <h4 style=" text-align: center;"><span class="badge bg-secondary text-light ">Editar Banner</span></h4>
+            <form #updateForm="ngForm" (ngSubmit)="onUpdate(updateForm)">
+                <div class="form-group">
+                    <label for="description">descripcion</label>
+                    <input type="text" #description="ngModel" [(ngModel)]="banner.description" name="description" class="form-control"
+                        required>
+                </div>
+
+                <div class="form-group">
+                    <label for="image">Imagen</label>
+                     <input type="text" #image="ngModel" [(ngModel)]="banner.image" class="form-control" name="image"
+                        required> 
+                // <input type="file" (change)="onFileSelected($event)"> 
+                </div>
+
+
+
+                <button type="submit" class="btn btn-outline-info mt-3" [disabled]="updateForm.invalid">Actualizar marca</button>
+            </form>
+        </div>  -->
+   
+    
+        <div class="container">
+            <table class="table table-success table-striped ">
+                <thead>
+                    <tr>
+                        <th>id</th>
+                        <th>email</th>
+                        <th>acciones</th>
+
+                    </tr>
+
+                </thead>
+                <tbody *ngIf="suscriptors!=undefined">
+                    <tr *ngFor="let suscriptor of suscriptors">
+                        <td>{{suscriptor._id}}</td>
+                        <td>
+                            {{suscriptor.email}}
+                        </td>
+                        <td>
+                            <div class="container">
+
+                                <button type="button" class="btn btn-danger btn-sm ml-2" (click)="delete()">Eliminar</button>
+
+
+                            </div>
+
+
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+</div>
