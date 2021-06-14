@@ -31,7 +31,7 @@ export class BannerComponent implements OnInit {
   getAll() {
     this._bannerService.getBanners().subscribe(
       response => {
-        
+
         if (response.status == "success") {
           this.banners = response.banners
 
@@ -122,6 +122,7 @@ export class BannerComponent implements OnInit {
               if (response.status == "success") {
                 this.status = 'success'
                 this.getAll()
+                banner.reset()
                 Swal.fire(
                   'muy bien!',
                   'El banner se ha guardado!',

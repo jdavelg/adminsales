@@ -17,7 +17,7 @@ export class IdentifyGuard implements CanActivate {
 
     let identity = this._userService.getToken()
     if (identity != undefined && identity != '0') {
-     this._router.navigate(['/category']) 
+     this._router.navigate(['/home']) 
       return false
     } else {
       return true

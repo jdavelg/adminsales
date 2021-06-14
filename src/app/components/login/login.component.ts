@@ -32,7 +32,7 @@ export class LoginComponent implements OnInit {
         if (response.token) {
           this.token = response.token
           localStorage.setItem('token', this.token);
-          this._router.navigate(['/brand'])
+          this._router.navigate(['/home'])
         }
       },
       error => {
