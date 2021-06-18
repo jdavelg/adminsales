@@ -27,6 +27,7 @@ import * as FilePondPoster from 'filepond-plugin-file-poster'
 import { UserGuard } from './guards/user.guard';
 import { HomeadminComponent } from './components/homeadmin/homeadmin.component';
 import { SuscriptorsComponent } from './components/suscriptors/suscriptors.component';
+import { CounterComponent } from './components/counter/counter.component';
 registerPlugin(FilePondPluginFileValidateType, /* FilePondPreview, */ FilePondPoster);
 
 
@@ -40,7 +41,8 @@ registerPlugin(FilePondPluginFileValidateType, /* FilePondPreview, */ FilePondPo
     CategoryComponent,
     AdminComponent,
     HomeadminComponent,
-    SuscriptorsComponent
+    SuscriptorsComponent,
+    CounterComponent
   ],
   imports: [
     BrowserModule,

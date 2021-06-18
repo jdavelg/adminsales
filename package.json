@@ -27,6 +27,7 @@
     "filepond-plugin-file-validate-type": "^1.2.6",
     "filepond-plugin-image-preview": "^4.6.6",
     "jquery": "^3.6.0",
+    "moment": "^2.29.1",
     "ngx-filepond": "^6.0.0",
     "ngx-font-awesome": "^1.0.0",
     "rxjs": "~6.6.0",

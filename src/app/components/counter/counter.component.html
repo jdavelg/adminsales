@@ -1,0 +1,57 @@
+<div class="row mt-4">
+    <div class="col" *ngIf="counterLength==0"><!--  -->
+        <h4 style=" text-align: center;"><span class="badge bg-secondary text-light ">Agrega el Timer</span>
+        </h4>
+        <div class="alert alert-danger alert-dismissible fade show" role="alert" *ngIf="status=='error'">
+            <strong>Error!</strong> Hubo un error al realizar la peticion.
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+        <div class="alert alert-success alert-dismissible fade show" role="alert" *ngIf="status=='success'">
+            <strong>Muy Bien</strong> La peticion se realizó con exito.
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+
+        <div class="container">
+            <form #registerForm="ngForm" (ngSubmit)="onSubmit(registerForm)">
+                <div class="form-group">
+                    <label for="start">Inicio</label>
+                    <input type="datetime-local" #start="ngModel" [(ngModel)]="counter.start" name="start" class="form-control date"
+                        required>
+                </div>
+
+                <div class="form-group">
+                    <label for="end">Fin</label>
+                    <input type="datetime-local" #end="ngModel" [(ngModel)]="counter.end" class="form-control" name="end"
+                        required>
+                </div>
+                <button type="submit" class="btn btn-outline-primary mt-3">Guardar Timer</button>
+            </form>
+        </div>
+    </div>
+    <div class="col-sm-8">
+        <div class="pt-4 pr-4 pb-4 pl-4">
+            <table class="table table-success table-striped ">
+                <thead>
+                    <tr>
+                        <th>inicio</th>
+                        <th>fin</th>
+                        <th>Acciones</th>
+                      
+                    </tr>
+
+                </thead>
+                <tbody *ngIf="counterTimer!=undefined">
+                    <tr *ngFor="let counterTime of counterTimer">
+                        <td>{{counterTime.start}}</td>
+                        <td>{{counterTime.end}}</td>
+                        <td>
+                            <button type="button" class="btn btn-danger btn-sm"
+                                (click)="delete(counterTime._id)">Eliminar</button>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+</div>

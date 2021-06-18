@@ -49,4 +49,22 @@ export class UserService {
     }
 
   }
+
+  getCounter(): Observable<any> {
+    return this._http.get(global.url + 'counter/getcounters')
+  }
+
+  saveCounter(form: any): Observable<any> {
+    console.log(form);
+    
+    let headers = new HttpHeaders().set('Authorization', this.getToken())
+    let params = form
+
+    return this._http.post(global.url + 'counter/addcounter', params, { headers: headers })
+  }
+
+  deleteCounter(id: any): Observable<any> {
+    let headers = new HttpHeaders().set('Authorization', this.getToken())
+    return this._http.delete(global.url + 'counter/delete/' + id, { headers: headers })
+  }
 }
