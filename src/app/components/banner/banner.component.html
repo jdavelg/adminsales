@@ -23,7 +23,14 @@
                     <input type="file" (change)="onFileSelected($event)" class="form-control">
                     <!--  <input type="file" (change)="onFileSelected($event)"> -->
                 </div>
+                <div class="form-group">
+                    <label for="mark">Marca</label>
+                    <select name="mark" #mak="ngModel" [(ngModel)]="banner.mark">
 
+                        <option *ngFor="let brand of brands" value="brand._id">{{brand.name}}</option>
+                    </select>
+                    <!--  <input type="file" (change)="onFileSelected($event)"> -->
+                </div>
 
 
                 <button type="submit" class="btn btn-outline-success mt-3" [disabled]="registerForm.invalid">Guardar
@@ -75,10 +82,10 @@
 
                         <td>
                             <div class="container">
-                                
-                                    <button type="button" class="btn btn-danger btn-sm ml-2"
-                                        (click)="delete(banner._id)">Eliminar</button>
-                            
+
+                                <button type="button" class="btn btn-danger btn-sm ml-2"
+                                    (click)="delete(banner._id)">Eliminar</button>
+
 
 
                             </div>

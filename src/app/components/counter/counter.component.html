@@ -1,5 +1,6 @@
 <div class="row mt-4">
-    <div class="col" *ngIf="counterLength==0"><!--  -->
+    <div class="col" *ngIf="counterLength==0">
+        <!--  -->
         <h4 style=" text-align: center;"><span class="badge bg-secondary text-light ">Agrega el Timer</span>
         </h4>
         <div class="alert alert-danger alert-dismissible fade show" role="alert" *ngIf="status=='error'">
@@ -15,14 +16,14 @@
             <form #registerForm="ngForm" (ngSubmit)="onSubmit(registerForm)">
                 <div class="form-group">
                     <label for="start">Inicio</label>
-                    <input type="datetime-local" #start="ngModel" [(ngModel)]="counter.start" name="start" class="form-control date"
-                        required>
+                    <input type="datetime-local" #start="ngModel" [(ngModel)]="counter.start" name="start"
+                        class="form-control date" required>
                 </div>
 
                 <div class="form-group">
                     <label for="end">Fin</label>
-                    <input type="datetime-local" #end="ngModel" [(ngModel)]="counter.end" class="form-control" name="end"
-                        required>
+                    <input type="datetime-local" #end="ngModel" [(ngModel)]="counter.end" class="form-control"
+                        name="end" required>
                 </div>
                 <button type="submit" class="btn btn-outline-primary mt-3">Guardar Timer</button>
             </form>
@@ -36,7 +37,7 @@
                         <th>inicio</th>
                         <th>fin</th>
                         <th>Acciones</th>
-                      
+
                     </tr>
 
                 </thead>

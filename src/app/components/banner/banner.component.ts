@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Banner } from 'src/app/models/banner';
 import { global } from 'src/app/models/global';
 import { BannerService } from 'src/app/services/banner.service';
+import { BrandService } from 'src/app/services/brand.service';
 import { UserService } from 'src/app/services/user.service';
 import Swal from 'sweetalert2';
 
@@ -16,16 +17,19 @@ export class BannerComponent implements OnInit {
   public banner: Banner
   public banners: any
   public status: any
+  public brands: any
   selectedFile: File | any;
   constructor(
     private _bannerService: BannerService,
-    private _userService: UserService
+    private _userService: UserService,
+    private _brandService: BrandService
   ) {
-    this.banner = new Banner('', '')
+    this.banner = new Banner('', '', '')
   }
 
   ngOnInit(): void {
     this.getAll()
+    this.getBrands()
   }
 
   getAll() {
@@ -35,6 +39,20 @@ export class BannerComponent implements OnInit {
         if (response.status == "success") {
           this.banners = response.banners
 
+        }
+      },
+      error => {
+        console.log(error);
+
+      }
+    )
+  }
+
+  getBrands() {
+    this._brandService.getAll().subscribe(
+      response => {
+        if (response.status == "success") {
+          this.brands == response.brands
         }
       },
       error => {
