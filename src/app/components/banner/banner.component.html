@@ -25,9 +25,8 @@
                 </div>
                 <div class="form-group">
                     <label for="mark">Marca</label>
-                    <select name="mark" #mark="ngModel" [(ngModel)]="banner.mark">
-
-                        <option *ngFor="let brand of brands" value="brand._id">{{brand.name}}</option>
+                    <select name="mark" #mark="ngModel" [(ngModel)]="banner.mark" class="form-select">
+                        <option *ngFor="let mark of marks" value="{{mark._id}}">{{mark.name}}</option>
                     </select>
                     <!--  <input type="file" (change)="onFileSelected($event)"> -->
                 </div>
@@ -66,6 +65,7 @@
                     <tr>
                         <th>descripcion</th>
                         <th>imagen</th>
+                        <th>marca</th>
                         <th>acciones</th>
 
                     </tr>
@@ -78,6 +78,9 @@
                             <div class="containerlist">
                                 <img src="{{banner.image}}" alt="" class="imglist">
                             </div>
+                        </td>
+                        <td>
+                            {{banner.mark.name}}
                         </td>
 
                         <td>

@@ -16,7 +16,7 @@ export class BannerService {
     private _http: HttpClient,
     private _userService: UserService
   ) {
-    this.banner = new Banner('', '')
+    this.banner = new Banner('', '','')
   }
 
   getBanners(): Observable<any> {

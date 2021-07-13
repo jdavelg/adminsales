@@ -21,6 +21,7 @@ export class ProductComponent implements OnInit {
   public selectedBrand: any
   public brands: any;
   public product: Product
+  public categories: any
   public status: any
   public selectedFile: any = null
   updating: boolean = false
@@ -30,10 +31,11 @@ export class ProductComponent implements OnInit {
   constructor(
     private _brandService: BrandService,
     private _productService: ProductService,
-    private _userService: UserService
+    private _userService: UserService,
+    private _categoryService: CategoryService
   ) {
-    this.product = new Product('', '', '', '', '');
-    this.productUpdate = new Product('', '', '', '', '')
+    this.product = new Product('', '', '', '', '', '');
+    this.productUpdate = new Product('', '', '', '', '', '')
   }
   @ViewChild('myPond') myPond: FilePondComponent | undefined
 
@@ -67,11 +69,28 @@ export class ProductComponent implements OnInit {
     this.getProducts()
   }
 
+  getCategories() {
+    this._categoryService.getAll().subscribe(
+      response => {
+        if (response.status == "success") {
+          this.categories = response.categories
+
+        }
+      },
+      error => {
+        console.log(error);
+
+      }
+    )
+
+  }
+
   getProducts() {
     this._brandService.getAll().subscribe(
       response => {
         if (response.status == "success") {
-          this.brands = response.marks        
+          this.brands = response.marks
+          console.log(response.marks);
 
         }
       },

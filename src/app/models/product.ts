@@ -4,7 +4,8 @@ export class Product {
     public price: String,
     public image: String,
     public link: String,
-    public brandId: String
+    public brandId: String,
+    public category:String
   ) { }
 
 }

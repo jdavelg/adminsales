@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { AfterViewInit, Component, DoCheck, OnInit } from '@angular/core';
 import { Banner } from 'src/app/models/banner';
 import { global } from 'src/app/models/global';
 import { BannerService } from 'src/app/services/banner.service';
@@ -17,7 +17,7 @@ export class BannerComponent implements OnInit {
   public banner: Banner
   public banners: any
   public status: any
-  public brands: any
+ public marks: Array<any>|undefined
   selectedFile: File | any;
   constructor(
     private _bannerService: BannerService,
@@ -29,8 +29,10 @@ export class BannerComponent implements OnInit {
 
   ngOnInit(): void {
     this.getAll()
-    this.getBrands()
+
   }
+
+
 
   getAll() {
     this._bannerService.getBanners().subscribe(
@@ -38,7 +40,20 @@ export class BannerComponent implements OnInit {
 
         if (response.status == "success") {
           this.banners = response.banners
+          this._brandService.getAll().subscribe(
+            response => {
+              if (response.status == "success") {
 
+                this.marks =response.marks
+                
+
+              }
+            },
+            error => {
+              console.log(error);
+
+            }
+          )
         }
       },
       error => {
@@ -48,19 +63,7 @@ export class BannerComponent implements OnInit {
     )
   }
 
-  getBrands() {
-    this._brandService.getAll().subscribe(
-      response => {
-        if (response.status == "success") {
-          this.brands == response.brands
-        }
-      },
-      error => {
-        console.log(error);
 
-      }
-    )
-  }
 
   delete(banner: any) {
 

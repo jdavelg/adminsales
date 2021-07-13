@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Brand } from 'src/app/models/brand';
 import { global } from 'src/app/models/global';
+import { SelectOption } from 'src/app/models/selectoption';
 import { BrandService } from 'src/app/services/brand.service';
 import { CategoryService } from 'src/app/services/category.service';
 import { UserService } from 'src/app/services/user.service';
@@ -18,7 +19,9 @@ export class BrandComponent implements OnInit {
   public allempty: boolean
   public categories: any
   public updating: boolean = false
+  public newOption: SelectOption
   public brandToUpdate: Brand
+  public dropdownSettings: any
   public idBrandCategory: any
   selectedFile: File | any;
   constructor(
@@ -26,24 +29,38 @@ export class BrandComponent implements OnInit {
     private _categoryService: CategoryService,
     private _userService: UserService
   ) {
-    this.brand = new Brand('', '', '', '');
+    this.brand = new Brand('', '', '', '', 0);
     this.allempty = true;
-    this.brandToUpdate = new Brand('', '', '', '');
+    this.brandToUpdate = new Brand('', '', '', '', 0);
+    this.newOption = new SelectOption(0, '')
 
   }
 
   ngOnInit(): void {
     this.getBrands()
     this.getCategories()
+
+
+    this.dropdownSettings = {
+      singleSelection: false,
+      text: "Seleccionar Categorias",
+      enableCheckAll: 'false',
+      unSelectAllText: 'UnSelect All',
+      enableSearchFilter: true,
+      enableFilterSelectAll: false,
+      classes: "form-select"
+    };
   }
+
 
   getBrands() {
     return this._brandService.getAll().subscribe(
       response => {
-        console.log(response);
+
 
         if (response.status == "success" && response.marks) {
           this.brands = response.marks
+          console.log(response.marks);
 
         } else {
 
@@ -58,9 +75,6 @@ export class BrandComponent implements OnInit {
   getCategories() {
     this._categoryService.getAll().subscribe(
       response => {
-        console.log(response);
-
-
         if (response.status == "success") {
           this.categories = response.categories
 
@@ -84,12 +98,12 @@ export class BrandComponent implements OnInit {
     this._userService.uploadImage(fd).subscribe(
       response => {
         if (response.path) {
-          console.log(response.path);
+
           let firstPath = response.path
 
           let pathtoadd = firstPath.split("https://clips-vod-tcs.s3.amazonaws.com/")
           let definitelypath = global.toReplace + pathtoadd[1]
-          console.log(definitelypath);
+
 
           this.brand.image = definitelypath
           this._brandService.save(this.brand).subscribe(
@@ -191,7 +205,7 @@ export class BrandComponent implements OnInit {
 
   goUpdate(brand: any) {
     this.brandToUpdate = brand;
-    console.log(this.brandToUpdate);
+
 
     this.updating = true
   }
@@ -206,12 +220,12 @@ export class BrandComponent implements OnInit {
       this._userService.uploadImage(fd).subscribe(
         response => {
           if (response.path) {
-            console.log(response.path);
+
             let firstPath = response.path
 
             let pathtoadd = firstPath.split("https://clips-vod-tcs.s3.amazonaws.com/")
             let definitelypath = global.toReplace + pathtoadd[1]
-            console.log(definitelypath);
+
 
             this.brandToUpdate.image = definitelypath
             /* start update */

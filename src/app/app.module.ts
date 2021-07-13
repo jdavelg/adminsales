@@ -28,6 +28,8 @@ import { UserGuard } from './guards/user.guard';
 import { HomeadminComponent } from './components/homeadmin/homeadmin.component';
 import { SuscriptorsComponent } from './components/suscriptors/suscriptors.component';
 import { CounterComponent } from './components/counter/counter.component';
+import { AngularMultiSelectModule } from 'angular2-multiselect-dropdown';
+
 registerPlugin(FilePondPluginFileValidateType, /* FilePondPreview, */ FilePondPoster);
 
 
@@ -50,7 +52,8 @@ registerPlugin(FilePondPluginFileValidateType, /* FilePondPreview, */ FilePondPo
     HttpClientModule,
     FormsModule,
     NgxFontAwesomeModule,
-    FilePondModule
+    FilePondModule,
+    AngularMultiSelectModule
   ],
   providers: [
   ],

@@ -27,7 +27,7 @@ export class CategoryComponent implements OnInit {
   getCategories() {
     this._categoryService.getAll().subscribe(
       response => {
-        console.log(response);
+       
 
 
         if (response.status == "success") {

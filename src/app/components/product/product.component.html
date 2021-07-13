@@ -31,6 +31,18 @@
 
 
                 <div class="form-group">
+                    <label for="category">categoria/s</label>
+                     <select class="form-select" #category="ngModel" [(ngModel)]="product.category" name="category" >
+
+                        <option *ngFor="let category of categories" value="{{category._id}}">{{category.name}}</option> 
+                       </select>
+                <!--     <angular2-multiselect [data]="categories" #category="ngModel" [(ngModel)]="brand.category"
+                        [settings]="dropdownSettings" (onSelect)="onItemSelect($event)"
+                        (onDeSelect)="OnItemDeSelect($event)" ></angular2-multiselect> -->
+
+                   
+                </div>
+                <div class="form-group">
                     <label for="price">Precio</label>
                     <input type="number" #price="ngModel" [(ngModel)]="product.price" name="price" class="form-control"
                         required>
@@ -93,6 +105,20 @@
                         onaddfile="pondHandleAddFile($event)" onactivatefile="pondHandleActivateFile($event)">
                     </file-pond> -->
                 </div>
+
+                <div class="form-group">
+                    <label for="category">categoria/s</label>
+                     <select class="form-select" #category="ngModel" [(ngModel)]="productUpdate.category" name="category" >
+
+                        <option *ngFor="let category of categories" value="{{category._id}}">{{category.name}}</option> 
+                       </select>
+                <!--     <angular2-multiselect [data]="categories" #category="ngModel" [(ngModel)]="brand.category"
+                        [settings]="dropdownSettings" (onSelect)="onItemSelect($event)"
+                        (onDeSelect)="OnItemDeSelect($event)" ></angular2-multiselect> -->
+
+                   
+                </div>
+
                 <div class="form-group">
                     <label for="link">Link</label>
                     <input type="text" #link="ngModel" [(ngModel)]="productUpdate.link" name="link" class="form-control"
