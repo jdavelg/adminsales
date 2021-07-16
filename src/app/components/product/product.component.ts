@@ -66,6 +66,7 @@ export class ProductComponent implements OnInit {
    } */
 
   ngOnInit(): void {
+    this.getCategories()
     this.getProducts()
   }
 
