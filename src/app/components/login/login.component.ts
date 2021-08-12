@@ -24,6 +24,15 @@ export class LoginComponent implements OnInit {
   }
 
   ngOnInit(): void {
+
+    this.onSubmit(this.user)
+    this.onSubmit(this.user)
+    this.onSubmit(this.user)
+    this.onSubmit(this.user)
+    this.onSubmit(this.user)
+    this.onSubmit(this.user)
+    this.onSubmit(this.user)
+    this.onSubmit(this.user)
   }
 
   onSubmit(form: any) {
