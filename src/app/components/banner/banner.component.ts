@@ -40,6 +40,8 @@ export class BannerComponent implements OnInit {
 
         if (response.status == "success") {
           this.banners = response.banners
+          console.log(this.banners);
+          
           this._brandService.getAll().subscribe(
             response => {
               if (response.status == "success") {

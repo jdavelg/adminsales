@@ -35,9 +35,9 @@
                     <label for="plan">Plan</label>
                     <select class="form-select" #plan="ngModel" [(ngModel)]="brand.plan" name="plan">
                         <option  selected disabled>Selecciona un plan</option>
-                        <option [ngValue]="2">Gold</option>
-                        <option [ngValue]="1">Premium</option>
-                        <option [ngValue]="0">Standard</option>
+                        <option [ngValue]="2">Silver</option>
+                        <option [ngValue]="1">Gold</option>
+                        <option [ngValue]="0">Bronce</option>
 
                     </select>
                 </div>
@@ -102,9 +102,9 @@
                     <label for="plan">Plan</label>
                     <select class="form-select" #plan="ngModel" [(ngModel)]="brandToUpdate.plan" name="plan">
 
-                        <option [ngValue]="2" [selected]="brandToUpdate.plan==2">Gold</option>
-                        <option [ngValue]="1" [selected]="brandToUpdate.plan==1">Premium</option>
-                        <option [ngValue]="0" [selected]="brandToUpdate.plan==0">Standard</option>
+                        <option [ngValue]="2" [selected]="brandToUpdate.plan==2">Silver</option>
+                        <option [ngValue]="1" [selected]="brandToUpdate.plan==1">Gold</option>
+                        <option [ngValue]="0" [selected]="brandToUpdate.plan==0">Bronce</option>
 
                     </select>
                 </div>
@@ -142,13 +142,13 @@
 
                         <td>{{brand.category.name}}</td>
                         <td *ngIf="brand.plan==0">
-                            standard
+                            Bronce
                         </td>
                         <td *ngIf="brand.plan==1">
-                            premium
+                            Gold
                         </td>
                         <td *ngIf="brand.plan==2">
-                            gold
+                         Silver
                         </td>
                         <td>
                             <div class="container">
