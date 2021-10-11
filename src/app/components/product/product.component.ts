@@ -103,13 +103,15 @@ export class ProductComponent implements OnInit {
 
   }
 
-  onSubmit(product: any) {
+  saveProduct(product:any){
     const fd = new FormData();
 
     fd.append('thumbnail', this.selectedFile, this.selectedFile.name)
     /* {reportProgress:true,
       observe:'events'
     } */
+
+
 
     this._userService.uploadImage(fd).subscribe(
       response => {
@@ -160,6 +162,50 @@ export class ProductComponent implements OnInit {
       }
     )
 
+  }
+
+  onSubmit(product: any) {
+
+  this.brands.forEach((brand:any) => {
+    if (this.product.brandId== brand._id) {
+      let productLength= brand.products.length
+if (brand.suscription==1 ||brand.suscription=='1') {
+  if (productLength<=14) {
+    this.saveProduct(product)
+  }else{
+    Swal.fire(
+      'Error!',
+      'La marca ya tiene el maximo de productos permitidos!',
+      'error'
+    )
+  }
+}
+if (brand.suscription==0 ||brand.suscription=='0') {
+  if (productLength<=4) {
+    this.saveProduct(product)
+  }else{
+    Swal.fire(
+      'Error!',
+      'La marca ya tiene el maximo de productos permitidos!',
+      'error'
+    )
+  }
+}
+if (brand.suscription==2 ||brand.suscription=='2') {
+  if (productLength<=9) {
+    this.saveProduct(product)
+  }else{
+    Swal.fire(
+      'Error!',
+      'La marca ya tiene el maximo de productos permitidos!',
+      'error'
+    )
+  }
+}
+
+    }
+  });
+    
 
 
 
